@@ -1,3 +1,7 @@
+# quantiseqr 1.21.3
+
+* Fixed a division-by-zero error when rescaling immune cell fractions after mRNA-content correction. When all estimated immune cell fractions were zero, this step produced NaN values. The fix now preserves zero immune cell estimates and assigns the remaining fraction to "Other".
+
 # quantiseqr 1.6.0
 
 ## Other notes
