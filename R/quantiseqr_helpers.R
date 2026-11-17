@@ -560,8 +560,14 @@ DClsei <- function(b, A, G, H, scaling = NULL) {
   est <- res$X
 
   est.sum <- sum(est)
-  est <- est / scaling
-  est <- est / sum(est) * est.sum
+  if (est.sum == 0) {
+    # Preserve zero estimates without rescaling to avoid division by zero
+    # when all estimated immune cell fractions are zero.
+    est[] <- 0
+  } else {
+    est <- est / scaling
+    est <- est / sum(est) * est.sum
+  }
   est <- c(est, pmax(0, 1 - sum(est)))
   names(est)[length(est)] <- "Other"
 
